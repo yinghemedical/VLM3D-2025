@@ -90,3 +90,9 @@ bash pipeline/run_3039.sh
 
 RadBERT/RoBERTa are public and are not included. Point the evaluation script to
 the upstream RadBERT checkpoint for F1/CRG reproduction.
+
+## License
+
+Code is Apache-2.0. Released model weights are
+**CC BY-NC 4.0 (non-commercial use only)**. Upstream base models, datasets, and
+dependencies retain their own licenses.

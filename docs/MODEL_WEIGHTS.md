@@ -13,7 +13,7 @@
   - `model-00003-of-00004.safetensors`
   - `model-00004-of-00004.safetensors`
   - `config.json`, `tokenizer*`, `model.safetensors.index.json`
-- Public URL: **TODO**
+- Public URL: `https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration`
 - SHA-256: see `manifests/weights_sha256.txt`
 
 ## Docker-internal weights
@@ -60,7 +60,9 @@ Do not commit weights to GitHub. Do not redistribute CT-RATE images/reports.
 
 ## License
 
-- Report-generation fine-tuned weights: **TODO** (likely CC BY-NC-SA 4.0).
-- Classification candidate weights: **TODO**.
+- Code in this repository: Apache-2.0 (see `LICENSE`).
+- Final report-generation weights: **CC BY-NC 4.0 (non-commercial use only)**.
+- Final CT_CLS8 weights and TotalSegmentator bundle: **CC BY-NC 4.0** for
+  team-provided weights; upstream components retain their own terms.
 - Base models: Qwen3-8B Apache-2.0; SigLIP2 upstream license; MedM-VL Apache-2.0.
 - CT-RATE data remains under its upstream terms.
