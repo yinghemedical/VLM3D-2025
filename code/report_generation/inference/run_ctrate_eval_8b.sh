@@ -39,7 +39,8 @@ rm -f "${RUN_DIR}"/predictions.shard*.json "${RUN_DIR}"/predictions.csv \
 # CONDA_ENVS_PATH is inherited from the caller.
 PY_INFER="/path/to/shipengcheng/.conda/envs/medals_local_test/bin/python"
 PY_EVAL="/path/to/miniconda3/envs/medmvl/bin/python"
-export PYTHONPATH="${ROOT}/code/jiawei_report_generate_docker/MedM-VL:${ROOT}/code/U-VLM:${PYTHONPATH:-}"
+MEDMVL_ROOT="${MEDMVL_ROOT:-${ROOT}/code/report_generation/MedM-VL}"
+export PYTHONPATH="${MEDMVL_ROOT}:${PYTHONPATH:-}"
 export HF_HUB_OFFLINE=1
 export TRANSFORMERS_OFFLINE=1
 export TOKENIZERS_PARALLELISM=false

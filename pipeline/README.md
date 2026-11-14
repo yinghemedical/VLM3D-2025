@@ -5,8 +5,7 @@ pipeline. It runs **CT_CLS8 classification first**, then uses the predicted
 18-class labels as the prompt condition for the **MedM-VL 8B report model**.
 Each case is independent and produces its own result folder.
 
-> U-VLM is used only as an evaluation-protocol reference. The classification
-> model is **CT_CLS8**, not a U-VLM classifier.
+> The classification model is **CT_CLS8**.
 
 ## Pipeline
 
@@ -171,4 +170,4 @@ runs/report_generation/ctrate_valid_8b/full_predcls_ctcls8/
   `scripts/report_generation/prepare_runtime_model.py`.
 - The CT-RATE `valid` split was included in the final 8B fine-tuning data; use
   an external held-out set for a clean generalization number.
-- U-VLM evaluation code is used only for the CT-RATE CSV/BLEU/F1 protocol.
+- Evaluation follows the CT-RATE CSV/BLEU/F1 protocol.

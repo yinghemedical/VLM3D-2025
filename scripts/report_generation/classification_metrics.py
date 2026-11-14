@@ -158,7 +158,7 @@ def calc_cls_metrics(
     gt_aligned, pred_aligned = align_predictions(gt_df, pred_df, id_col, gt_cols, pred_cols)
 
     # 阈值无关的 AUC/AP：分类任务的主指标
-    # （口径见 U-VLM 评估文档）
+    # （CT-RATE 分类指标口径）
     auc_block = calc_auc_block(gt_aligned, pred_aligned, gt_cols, pred_cols)
 
     # 判断是否需要二值化

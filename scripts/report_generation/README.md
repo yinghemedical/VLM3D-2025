@@ -1,16 +1,15 @@
 # CT-RATE Report-Generation Evaluation
 
 This directory contains the local evaluation pipeline for the VLM3D 2025 8B
-report model. It uses the CT-RATE `valid_fixed` split (3,038 report-bearing
-volumes) as the local test set and follows the U-VLM report contract:
+report model. It uses the CT-RATE `valid_fixed` split (3,039 report-bearing
+volumes) as the local test set and follows the CT-RATE report contract:
 
 ```text
 series_id, report, generated_report
 ```
 
-The U-VLM model-specific inference cannot load MedM-VL. We use U-VLM's
-CT-RATE CSV layout and `uvlm_evaluate report` metrics, and run the MedM-VL
-model with its own `LVLMForConditionalGeneration` code.
+MedM-VL uses its own inference code. We use the CT-RATE CSV layout and a
+pycocoevalcap-based report metric.
 
 ## Files
 
@@ -20,8 +19,8 @@ model with its own `LVLMForConditionalGeneration` code.
 | `prepare_ctrate_eval.py` | Builds `gt.csv`, `inputs.all.json`, and `inputs.shardNN.json` from `validation_reports.csv` + `valid_predicted_labels.csv`. |
 | `run_medmvl_report.py` | One process per shard/GPU; writes `predictions.shardNN.{json,csv}` incrementally. |
 | `merge_results.py` | Merges shards in GT order into `predictions.{json,csv}`. |
-| `eval_nlg.py` | Calls U-VLM's BLEU metric and adds ROUGE-L/CIDEr (METEOR if Java exists). |
-| `eval_f1.py` | AutoExps/RadBERT report-label extraction + 18-class macro/micro F1 + CRG. |
+| `eval_nlg.py` | Calls the CT-RATE BLEU metric and adds ROUGE-L/CIDEr (METEOR if Java exists). |
+| `eval_f1.py` | RadBERT report-label extraction + 18-class macro/micro F1 + CRG. |
 | `run_ctrate_eval_8b.sh` | End-to-end smoke/full launcher used by the cluster YAMLs. |
 | `run_f1_eval.sh` | Runs `eval_f1.py` on an existing full run. |
 
@@ -62,7 +61,7 @@ Full with **classification-model output** as prompt labels:
 bash /path/to/VLM3D/scripts/report_generation/run_ctrate_eval_8b.sh full_predcls
 ```
 
-The default classifier output is the best U-VLM CT-RATE classification CSV in
+The default classifier output is the CT-RATE classification CSV in
 `/path/to/shipengcheng/code/CT-RATE_eval_scripts/eval_cls_csv/`; override
 with `PROMPT_LABELS=/path/to/classification.csv`. GT labels in `gt.csv` remain
 the official CT-RATE labels; only the prompt is classification-conditioned.
@@ -75,7 +74,7 @@ batch_cmd run -i /path/to/VLM3D/configs/report_generation/ctrate_report_8b_smoke
 batch_cmd run -i /path/to/VLM3D/configs/report_generation/ctrate_report_8b_full.yaml -y
 ```
 
-F1 / CRG after a full run (AutoExps RadBERT, same 3,039 cases):
+F1 / CRG after a full run (RadBERT, same 3,039 cases):
 
 ```bash
 batch_cmd run -i /path/to/VLM3D/configs/report_generation/ctrate_report_8b_f1.yaml -y

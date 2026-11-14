@@ -1,6 +1,6 @@
 # CT_CLS8 classification inference
 
-This directory runs the **actual CT_CLS8 ensemble** (not U-VLM classification)
+This directory runs the **CT_CLS8 ensemble**
 on the 3,039 CT-RATE `valid_fixed` volumes, producing 18-class probabilities
 for the report prompt.
 

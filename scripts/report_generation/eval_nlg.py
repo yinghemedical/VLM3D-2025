@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Evaluate MedM-VL generated reports with the U-VLM/CT-RATE protocol.
+"""Evaluate MedM-VL generated reports with the CT-RATE protocol.
 
-BLEU is computed with U-VLM's `calc_nlg_metrics` (pycocoevalcap).
+BLEU is computed with pycocoevalcap.
 ROUGE-L and CIDEr are added for a fuller local picture.  METEOR is optional
 because pycocoevalcap's Meteor needs a Java runtime.
 """
@@ -25,16 +25,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--id-col", default="series_id")
     p.add_argument("--gt-report-col", default="report")
     p.add_argument("--pred-report-col", default="generated_report")
-    p.add_argument("--uvlm-root", default=str(root / "code/U-VLM"))
     return p.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    uvlm_root = str(Path(args.uvlm_root).resolve())
-    if uvlm_root not in sys.path:
-        sys.path.insert(0, uvlm_root)
-
     from nlg_metrics import clean_report_text, calc_nlg_metrics
 
     gt = pd.read_csv(args.gt_csv)

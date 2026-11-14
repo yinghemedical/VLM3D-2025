@@ -18,7 +18,7 @@ Hyperparameters are summarized in `docs/REPRODUCTION.md`.
 | `ctrate_report_8b_smoke.yaml` | 8-case end-to-end smoke test | 1 |
 | `ctrate_report_8b_full.yaml` | full CT-RATE `valid_fixed` evaluation with GT-label prompt (3,039 records) | 8 |
 | `ctrate_report_8b_predcls.yaml` | full evaluation with classification-model output as prompt labels | 8 |
-| `ctrate_report_8b_f1.yaml` | AutoExps/RadBERT F1 + CRG on an existing run | 1 |
+| `ctrate_report_8b_f1.yaml` | RadBERT F1 + CRG on an existing run | 1 |
 
 Both invoke `scripts/report_generation/run_ctrate_eval_8b.sh` (`smoke` or
 `full`), write to `runs/report_generation/ctrate_valid_8b/<mode>/`, then merge

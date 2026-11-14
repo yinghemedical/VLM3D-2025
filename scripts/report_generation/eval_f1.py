@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Compute CT-RATE report-generation F1 with the AutoExps/RadBERT protocol.
+"""Compute CT-RATE report-generation F1 with the RadBERT protocol.
 
-This mirrors AutoExps `CTRateReportEvaluator`:
-  generated report -> RadBERT -> 18 binary labels -> macro/micro F1 vs GT.
+Pipeline: generated report -> RadBERT -> 18 binary labels -> macro/micro F1
+and CRG against the ground truth.
 """
 from __future__ import annotations
 
@@ -22,7 +22,6 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--output-dir", required=True)
     p.add_argument("--id-col", default="series_id")
     p.add_argument("--report-col", default="generated_report")
-    p.add_argument("--autoexps-root", default=str(root / "shared/auto_exps"))
     p.add_argument(
         "--radbert-model",
         default="/path/to/RadBertClassifier.pth",
@@ -37,19 +36,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    autoexps_root = Path(args.autoexps_root).resolve()
-    autoexps_src = str(autoexps_root / "src" if (autoexps_root / "src").is_dir() else autoexps_root)
-    if autoexps_src not in sys.path:
-        sys.path.insert(0, autoexps_src)
-
-    from auto_exps.evaluation.extractors.radbert import (  # noqa: E402
-        CTRATE_CLS_COLS,
-        RadBertExtractor,
-    )
-    from auto_exps.evaluation.metrics.classification import (  # noqa: E402
-        calc_cls_metrics,
-        calc_crg_metrics,
-    )
+    from radbert import CTRATE_CLS_COLS, RadBertExtractor  # noqa: E402
+    from classification_metrics import calc_cls_metrics, calc_crg_metrics  # noqa: E402
 
     gt = pd.read_csv(args.gt_csv, dtype={args.id_col: str})
     pred = pd.read_csv(args.pred_csv, dtype={args.id_col: str})

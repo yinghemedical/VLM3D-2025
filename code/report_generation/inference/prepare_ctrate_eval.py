@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the CT-RATE validation/test manifest for MedM-VL report inference.
 
-The output follows the U-VLM CT-RATE report contract where possible:
+The output follows the CT-RATE report contract where possible:
   * GT CSV has `series_id`, `volume_name`, `report` and 18 label columns.
   * Predictions use `series_id` + `generated_report`.
 The MedM-VL-specific input JSON adds the human prompt and absolute image path.

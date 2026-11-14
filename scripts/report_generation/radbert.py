@@ -17,7 +17,7 @@ from transformers import AutoTokenizer, AutoConfig, AutoModel
 
 
 # 默认的 RoBERTa 基础模型路径
-DEFAULT_ROBERTA_DIR = "/path/to/robert"
+DEFAULT_ROBERTA_DIR = "/yinghepool/jiawei_database/robert"
 
 # CT-RATE 18 类病理标签
 CTRATE_CLS_COLS = [

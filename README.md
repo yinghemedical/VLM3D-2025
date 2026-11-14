@@ -20,7 +20,7 @@ pipeline/         end-to-end CT_CLS8 -> 8B report, per case or batch
 scripts/          wrappers used by pipeline and cluster YAMLs
 configs/          classification/report cluster YAMLs
 docs/             method, results, release notes
-examples/         placeholder examples; no CT-RATE data
+pipeline/examples/ placeholder examples; no CT-RATE data
 ```
 
 ## Entrypoints

@@ -38,7 +38,7 @@ Full run (all 3,039 CT-RATE `valid_fixed` records; completed 2026-11-13):
 | CIDEr | 0.3033 |
 | METEOR | not computed (no Java) |
 
-**Report-derived label F1** (AutoExps/RadBERT, 18 classes, threshold 0.5,
+**Report-derived label F1** (RadBERT, 18 classes, threshold 0.5,
 same 3,039 cases):
 
 | Metric | Value |
@@ -56,12 +56,11 @@ splits. These 3,039 valid cases are therefore seen during fine-tuning; the
 numbers are an in-sample upper bound, not a held-out test score. For a clean
 held-out number, evaluate on the official hidden CT-RATE test set or another
 external set not used in training. The 0.9083 F1 is report-derived (RadBERT)
-and is **not** the same metric as U-VLM's classification F1 0.414.
+and is **not** the same metric as image-classification F1.
 
 ### Classification-output prompt run (deployment-like)
 
-Prompt labels were replaced with the 18-class **U-VLM classification model
-output** on the same 3,039 cases, instead of the CT-RATE label CSV:
+Prompt labels were replaced with the 18-class **classification model output** on the same 3,039 cases, instead of the CT-RATE label CSV:
 
 ```text
 /path/to/shipengcheng/code/CT-RATE_eval_scripts/eval_cls_csv/
