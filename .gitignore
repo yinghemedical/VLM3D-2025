@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.log
+outputs/
+runs/
+checkpoints/
+*.ckpt
+*.pth
+*.safetensors
+*.nii
+*.nii.gz
+*.npy
+*.npz
+*.jsonl
+data/

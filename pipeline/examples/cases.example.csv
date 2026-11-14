@@ -1,0 +1,4 @@
+case_id,image_path
+case_001,/path/to/case_001.nii.gz
+case_002,/path/to/case_002.nii.gz
+case_003,/path/to/case_003.nii.gz

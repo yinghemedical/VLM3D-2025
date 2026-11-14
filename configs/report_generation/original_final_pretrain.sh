@@ -1,0 +1,41 @@
+export PYTHONPATH=$PYTHONPATH:/path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/report_generate_docker/MedM-VL
+
+deepspeed --include localhost:0,1,2,3,4,5,6,7 --master_port 29501 /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/report_generate_docker/MedM-VL/lvlm/train.py \
+    --deepspeed /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/report_generate_docker/scripts/zero3.json \
+    --cache_dir_hf /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/cache_dir_hf \
+    --llm_type qwen3 \
+    --llm_name_or_path /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/cache_dir_hf/Qwen3-8B \
+    --llm_max_length 4096 \
+    --llm_padding_side right \
+    --llm_attn_implementation flash_attention_2 \
+    --tokenizer_use_fast False \
+    --encoder_image_type siglip \
+    --encoder_image_name_or_path /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/cache_dir_hf/models--google--siglip2-so400m-patch14-384/snapshots/e8e487298228002f3d8a82e0cd5c8ea9c567f57f \
+    --encoder_image_select_layer -1 \
+    --encoder_image_select_feature cls_patch \
+    --connector_image_type attn_pooling \
+    --connector_image_name mlp2x_gelu \
+    --data_path /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/report_generate_docker/datasets/final_data/final_pretrain.json \
+    --conv_version pretrain_image3d \
+    --image3d_path /path/to/jiawei_database/ctrate_raw\
+    --training_recipe common \
+    --tune_type_llm frozen \
+    --tune_type_encoder_image frozen \
+    --tune_type_connector_image full \
+    --bf16 True \
+    --gradient_checkpointing True \
+    --output_dir /path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/report_generate_docker/exps/final-MedM-VL-siglip-384-qwen3-8b-pretrain \
+    --dataloader_num_workers 8 \
+    --dataloader_pin_memory True \
+    --dataloader_persistent_workers True \
+    --num_train_epochs 1 \
+    --per_device_train_batch_size 8 \
+    --gradient_accumulation_steps 2 \
+    --learning_rate 1e-3 \
+    --weight_decay 0.0 \
+    --warmup_ratio 0.03 \
+    --lr_scheduler_type cosine \
+    --eval_strategy no \
+    --save_strategy no \
+    --report_to tensorboard \
+    --logging_steps 1

@@ -1,0 +1,118 @@
+defaults:
+  - _self_
+  - env: local
+  - model: resenc
+  - data: ctrate
+
+teamname: 'debug'
+output_subdir: /path/to/fangyunhan/VLM/SSL3D_classification/run/output_320_deeper #${exp_dir}/${teamname}/classification/${data.module.name}/checkpoints/${make_group_name:}
+hydra:
+  output_subdir: /path/to/fangyunhan/VLM/SSL3D_classification/run/output_320_deeper #${output_subdir}
+  job:
+    chdir: False
+  run:
+    dir: .
+
+override hydra/hydra_logging: disable
+override hydra/job_logging: disable
+
+seed: 2025
+
+model:
+  # optimizer: SGD
+  sam: False  # set trainer.precision=32 if you use sam
+  adaptive_sam: False  # set trainer.precision=32 if you use sam
+  # lr: 0.02
+  nesterov: False
+  scheduler: CosineAnneal
+  T_max: 400 #${trainer.max_epochs}
+  min_lr: 0.001
+  warmstart: 0
+  warmstart2: 0
+  mixup: False
+  mixup_alpha: 0.2
+  weight_decay: 3e-5
+  undecay_norm: False
+  label_smoothing: 0.2
+  stochastic_depth: False
+  resnet_dropout: 0.0
+  squeeze_excitation: False
+  apply_shakedrop: False
+  zero_init_residual: False
+  input_dim: 2
+  input_channels: 3
+  task: 'Classification'
+  subtask: 'multilabel' #'multiclass'  # 
+  metric_computation_mode: 'epochwise'
+  result_plot: 'val'
+  num_classes: 18 #`${data.num_classes}
+  metrics: 
+    - 'acc'
+    - 'f1'
+    - 'pr' #${metrics}
+  epochs: 200 #${trainer.max_epochs}
+  name: ${model_name_extractor:${model._target_}}
+  compile: False
+  classification_head_dropout: 0.0
+  token_aggregation_method: cls_token
+  pretrained: 0
+  finetune_method: full
+  save_preds: True
+    
+data:
+  module:
+    # random_batches: False
+    num_workers: 12
+    prepare_data_per_node: False
+    fold: null
+  num_classes: 18
+  cv:
+    k: 1  # 1=no Cross Validation
+
+metrics:
+  - 'acc'
+  - 'f1'
+  - 'pr'
+
+val_only: False
+
+trainer:
+  _target_: lightning.pytorch.Trainer
+  callbacks: 
+    progressbar:
+      _target_: lightning.pytorch.callbacks.RichProgressBar
+    lr_monitor:
+      _target_: lightning.pytorch.callbacks.LearningRateMonitor
+      logging_interval: epoch
+    checkpoint:
+      _target_: lightning.pytorch.callbacks.ModelCheckpoint
+      every_n_epochs: 3
+      save_top_k: -1
+      dirpath: /path/to/fangyunhan/VLM/SSL3D_classification/run/ckpt
+      filename: '{epoch}-crop-256-{val_F1:.2f}'
+      auto_insert_metric_name: True
+  devices: 4
+  accelerator: 'gpu'
+  sync_batchnorm: False  # set to True if you use multiple GPUs
+  enable_checkpointing: True #False
+  max_epochs: 200
+  reload_dataloaders_every_n_epochs: 1
+  benchmark: True
+  deterministic: False
+  precision: '16-mixed'
+  enable_progress_bar: True
+  strategy: 'ddp'
+  logger: 
+    _target_: lightning.pytorch.loggers.WandbLogger
+    save_dir: /path/to/fangyunhan/VLM/SSL3D_classification/run/logger #${exp_dir}/${teamname}/classification/${data.module.name}
+    offline: False
+    project: ctrate # ${data.module.name}
+    group: cls
+  num_sanity_val_steps: 0
+  accumulate_grad_batches: 1
+  # Some useful trainer parameters for debugging
+  #limit_train_batches: 0.1
+  #limit_val_batches: 0.5
+  #limit_test_batches: 0.25
+  #gradient_clip_val: 0.5
+  #log_every_n_steps: 50

@@ -1,0 +1,25 @@
+hydra:
+  output_subdir: null
+  job:
+    chdir: False
+  run:
+    dir: .
+
+trainer:
+  devices: 1
+
+override hydra/hydra_logging: disable
+override hydra/job_logging: disable
+
+exp_dir: cli_configs/crop
+exp_dir2: cli_configs/cls-head
+# /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-09/output_crop_mask/.hydra/
+# /path/to/fangyunhan/VLM/SSL3D_classification/run/output_crop/ # ???  # path to the directory containing the hydra configs and fold directories
+fold: null  # if no fold is given, an ensemble of all available folds will be used (if only one fold is available this can be ignored)
+pred_dir: null
+
+metrics:
+  - 'acc'
+  - 'f1'
+  - 'ap'
+  - 'pr'

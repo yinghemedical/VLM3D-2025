@@ -1,0 +1,126 @@
+teamname: debug
+output_subdir: /path/to/fangyunhan/VLM/SSL3D_classification/run/output_crop_resume
+override hydra/hydra_logging: disable
+override hydra/job_logging: disable
+seed: 2025
+model:
+  sam: false
+  adaptive_sam: false
+  nesterov: false
+  scheduler: CosineAnneal
+  T_max: 400
+  min_lr: 0.002
+  warmstart: 15
+  warmstart2: 0
+  mixup: false
+  mixup_alpha: 0.2
+  weight_decay: 3.0e-05
+  undecay_norm: false
+  label_smoothing: 0.2
+  stochastic_depth: false
+  resnet_dropout: 0.0
+  squeeze_excitation: false
+  apply_shakedrop: false
+  zero_init_residual: false
+  input_dim: 3
+  input_channels: 1 # 2
+  task: Classification
+  subtask: multilabel
+  metric_computation_mode: epochwise
+  result_plot: val
+  num_classes: 18
+  metrics:
+  - acc
+  - f1
+  - pr
+  epochs: 400
+  name: ${model_name_extractor:${model._target_}}
+  compile: false
+  classification_head_dropout: 0.2
+  token_aggregation_method: null
+  pretrained: true
+  finetune_method: full
+  save_preds: true
+  _target_: models.resenc_6.ResEncoder_Classifier
+  chpt_path: null
+  cifar_size: false
+  input_shape:
+  - 128
+  - 256
+  - 256
+  optimizer: SGD
+  lr: 0.008
+data:
+  module:
+    num_workers: 12
+    prepare_data_per_node: false
+    fold: null
+    _target_: datasets.ctrate_crop.ctrate_DataModule
+    name: ctrate
+    data_root_dir: ${data_dir}
+    batch_size: 8
+    random_batches: true
+    train_transforms:
+      _target_: augmentation.policies.batchgenerators.get_training_transforms
+      patch_size:
+      - 128
+      - 256
+      - 256
+      rotation_for_DA: 0.523599
+      mirror_axes:
+      - 0
+      - 1
+      - 2
+      do_dummy_2d_data_aug: false
+    test_transforms: null
+  num_classes: 18
+  cv:
+    k: 1
+  patch_size:
+  - 128
+  - 256
+  - 256
+metrics:
+- f1
+- pr
+- balanced_acc
+- ap
+- auroc
+val_only: false
+trainer:
+  _target_: lightning.pytorch.Trainer
+  callbacks:
+    progressbar:
+      _target_: lightning.pytorch.callbacks.RichProgressBar
+    lr_monitor:
+      _target_: lightning.pytorch.callbacks.LearningRateMonitor
+      logging_interval: epoch
+    checkpoint:
+      _target_: lightning.pytorch.callbacks.ModelCheckpoint
+      every_n_epochs: 3
+      save_top_k: -1
+      dirpath: /path/to/fangyunhan/VLM/SSL3D_classification/run/ckpt
+      filename: '{epoch}-crop_resume-{val_F1:.2f}'
+      auto_insert_metric_name: true
+  devices: 4
+  accelerator: gpu
+  sync_batchnorm: true
+  enable_checkpointing: true
+  max_epochs: 400
+  reload_dataloaders_every_n_epochs: 1
+  benchmark: true
+  deterministic: false
+  precision: 16-mixed
+  enable_progress_bar: true
+  strategy: ddp_find_unused_parameters_true
+  logger:
+    _target_: lightning.pytorch.loggers.WandbLogger
+    save_dir: /path/to/fangyunhan/VLM/SSL3D_classification/run/logger
+    offline: false
+    project: ctrate
+    group: cls
+  num_sanity_val_steps: 0
+  accumulate_grad_batches: 1
+  check_val_every_n_epoch: 3
+exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/run/ckpt
+data_dir: /path/to/fangyunhan/VLM/SSL3D_classification/run/data

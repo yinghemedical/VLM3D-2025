@@ -1,0 +1,31 @@
+hydra:
+  output_subdir: null
+  job:
+    chdir: False
+  run:
+    dir: .
+
+trainer:
+  devices: 1
+
+override hydra/hydra_logging: disable
+override hydra/job_logging: disable
+
+exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-26/bce/.hydra/ #bce-fintune
+# exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-22/02-14-59/.hydra/ #320
+# exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-15/18-25-05/.hydra/ # cls_head
+# exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-11/11-41-43/.hydra/ # crop-seg
+# exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-11/03-37-01/.hydra/ # crop
+# exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-15/14-18-18/.hydra/ # 2cls
+# exp_dir: /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-13/crop_lung/.hydra
+
+# /path/to/fangyunhan/VLM/SSL3D_classification/outputs/2025-08-09/output_crop_mask/.hydra/
+# /path/to/fangyunhan/VLM/SSL3D_classification/run/output_crop/ # ???  # path to the directory containing the hydra configs and fold directories
+fold: null  # if no fold is given, an ensemble of all available folds will be used (if only one fold is available this can be ignored)
+pred_dir: null
+
+metrics:
+  - 'acc'
+  - 'f1'
+  - 'ap'
+  - 'pr'

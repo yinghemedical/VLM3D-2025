@@ -1,0 +1,15 @@
+pod_name: shipc-vlm3d-ctrate-report-8b-f1
+cmd: bash /path/to/VLM3D/scripts/report_generation/run_f1_eval.sh
+gpu_name: NVIDIA-H200
+gpu_num: 1
+memory_limit: 64
+user_name: shipengcheng
+user_id: "1011"
+group_id: "1030"
+namespace: mlops
+container_name: pytorch
+image_name: 172.16.2.121:30002/library/mmengine-base:0.14
+use_in_mlops: true
+queue_name: mlops
+num_master: 1
+num_worker: 0
