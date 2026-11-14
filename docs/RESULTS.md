@@ -2,8 +2,12 @@
 
 ## Official results
 
-The official VLM3D 2025 leaderboard is the source of truth. This workspace does
-not contain a platform submission ID or official score snapshot.
+| Track | Overall rank | Leaderboard |
+|---|---:|---|
+| Report Generation | **#1** | https://research.forithmus.com/challenges/ct-report-generation#leaderboard |
+| Multi-Abnormality Classification | **#3** | https://research.forithmus.com/challenges/ct-abnormality-classification#leaderboard |
+
+The official VLM3D 2025 leaderboard is the source of truth for platform scores.
 
 ## Local evaluation — Report Generation
 

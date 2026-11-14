@@ -3,6 +3,13 @@
 Two tracks, one repository. Training and inference live in separate
 directories; shared orchestration is under `pipeline/`.
 
+## Official results
+
+| Track | Overall rank | Leaderboard |
+|---|---:|---|
+| Report Generation | **#1** | https://research.forithmus.com/challenges/ct-report-generation#leaderboard |
+| Multi-Abnormality Classification | **#3** | https://research.forithmus.com/challenges/ct-abnormality-classification#leaderboard |
+
 ## Layout
 
 ```text
