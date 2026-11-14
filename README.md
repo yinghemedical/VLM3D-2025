@@ -1,5 +1,7 @@
 # VLM3D 2025 Code
 
+Team: **Medical Image Insights**
+
 Two tracks, one repository. Training and inference live in separate
 directories; shared orchestration is under `pipeline/`.
 

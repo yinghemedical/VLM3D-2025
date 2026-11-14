@@ -1,5 +1,7 @@
 # Results
 
+Team: **Medical Image Insights**
+
 ## Official results
 
 | Track | Overall rank | Leaderboard |
