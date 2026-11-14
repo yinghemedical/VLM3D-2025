@@ -1,5 +1,12 @@
 # Model Weights
 
+## Public weight repositories
+
+- Task 1 (Report Generation):
+  https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration
+- Task 2 (Multi-Abnormality Classification):
+  https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications
+
 ## Report Generation
 
 - Local snapshot:

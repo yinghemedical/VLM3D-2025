@@ -49,13 +49,14 @@ No CT-RATE images, reports, patient identifiers, or label CSVs are included.
 
 ## Setup
 
-Weights are in the separate repository `VLM3D-2025-weights`:
+Weights are published in two Hugging Face repositories:
 
-```text
-classification/ct_cls8/                 # 3 CT_CLS8 checkpoints
-classification/total_segmentator/       # Dataset665 checkpoint
-report_generation/final-8b/             # MedM-VL 8B, 4 shards
-```
+- Report generation:
+  [`jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration`](https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration)
+  — final 8B MedM-VL checkpoint (4 shards).
+- Multi-abnormality classification:
+  [`jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications`](https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications)
+  — CT_CLS8 3-checkpoint ensemble + TotalSegmentator checkpoint.
 
 Copy the environment template and set local paths:
 
