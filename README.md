@@ -1,4 +1,4 @@
-# VLM3D 2025 Code
+# VLM3D 2025
 
 Team: **Medical Image Insights**
 
