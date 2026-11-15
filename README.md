@@ -5,6 +5,16 @@ Team: **Medical Image Insights**
 Two tracks, one repository. Training and inference live in separate
 directories; shared orchestration is under `pipeline/`.
 
+## Authors
+
+**Report Generation**  
+Jiawei Chen², Yiming Shi³, Yunhan Fang⁴, Pengcheng Shi¹, Shuheng Zhang¹, Jiaqi Liu¹, Xinglin Zhang¹  
+¹ Medical Image Insights · ² Xi’an Jiaotong University · ³ Tsinghua University · ⁴ Shanghai Jiaotong University
+
+**Multi-Abnormality Classification**  
+Yunhan Fang², Pengcheng Shi¹, Jiawei Chen¹,³, Yiming Shi⁴, Shuheng Zhang¹, Jiaqi Liu¹, Xinglin Zhang¹  
+¹ Medical Image Insights · ² Shanghai Jiaotong University · ³ Xi’an Jiaotong University · ⁴ Tsinghua University
+
 ## Official results
 
 | Track | Overall rank | Leaderboard |
