@@ -2,8 +2,10 @@
 
 Team: **Medical Image Insights**
 
-Two tracks, one repository. Training and inference live in separate
-directories; shared orchestration is under `pipeline/`.
+This repository contains code for the VLM3D@MICCAI 2025 multi-abnormality
+classification and report generation tracks. Classification code is in
+`code/classification/`, report generation code in `code/report_generation/`,
+and shared code in `pipeline/`.
 
 ## Team Members
 
@@ -63,7 +65,7 @@ pipeline/run_case.sh
 
 ## Setup
 
-Weights are published in two Hugging Face repositories:
+Weights are in two Hugging Face repositories:
 
 - Report generation:
   [`jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration`](https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration)
@@ -72,7 +74,7 @@ Weights are published in two Hugging Face repositories:
   [`jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications`](https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications)
   — CT_CLS8 3-checkpoint ensemble + TotalSegmentator checkpoint.
 
-Copy the environment template and set local paths:
+Set local paths in the environment file:
 
 ```bash
 cp pipeline/configs/pipeline.env.example pipeline/configs/pipeline.env
@@ -84,20 +86,20 @@ For CT_CLS8 inference, `CT_CLS_ROOT` must contain `process.py` and a local
 
 ## Quick start
 
-One case:
+Run one case:
 
 ```bash
 bash pipeline/run_case.sh /path/to/case.nii.gz CASE_ID pipeline/outputs
 # -> pipeline/outputs/CASE_ID/case.json
 ```
 
-A few examples:
+Run the example cases:
 
 ```bash
 bash pipeline/run_examples.sh
 ```
 
-Full CT-RATE `valid_fixed` batch (3,039 cases):
+Run the full CT-RATE `valid_fixed` set (3,039 volumes):
 
 ```bash
 bash pipeline/run_3039.sh
