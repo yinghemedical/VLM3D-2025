@@ -51,11 +51,6 @@ code/report_generation/inference/run_medmvl_report.py
 pipeline/run_case.sh
 ```
 
-## Data policy
-
-No CT-RATE images, reports, patient identifiers, or label CSVs are included.
-`pipeline/examples/cases.example.csv` uses `/path/to/...` placeholders.
-
 ## Setup
 
 Weights are published in two Hugging Face repositories:
@@ -100,6 +95,24 @@ bash pipeline/run_3039.sh
 
 RadBERT/RoBERTa are public and are not included. Point the evaluation script to
 the upstream RadBERT checkpoint for F1/CRG reproduction.
+
+## Data and citation
+
+Training and evaluation use the
+[CT-RATE dataset](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE).
+
+If you use this code or the released weights, please cite:
+
+```bibtex
+@article{hamamci2026generalist,
+  title={Generalist foundation models from a multimodal dataset for 3D computed tomography},
+  author={Hamamci, Ibrahim Ethem and Er, Sezgin and Wang, Chenyu and Almas, Furkan and Simsek, Ayse Gulnihan and Esirgun, Sevval Nil and Dogan, Irem and Durugol, Omer Faruk and Hou, Benjamin and Shit, Suprosanna and others},
+  journal={Nature Biomedical Engineering},
+  pages={1--19},
+  year={2026},
+  publisher={Nature Publishing Group UK London}
+}
+```
 
 ## License
 
