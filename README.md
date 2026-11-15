@@ -5,7 +5,7 @@ Team: **Medical Image Insights**
 Two tracks, one repository. Training and inference live in separate
 directories; shared orchestration is under `pipeline/`.
 
-## Authors
+## Team Members
 
 **Report Generation**  
 Jiawei Chen², Yiming Shi³, Yunhan Fang⁴, Pengcheng Shi¹, Shuheng Zhang¹, Jiaqi Liu¹, Xinglin Zhang¹  
