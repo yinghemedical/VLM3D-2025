@@ -12,7 +12,7 @@ Jiawei Chen², Yiming Shi³, Yunhan Fang⁴, Pengcheng Shi¹, Shuheng Zhang¹, J
 ¹ Medical Image Insights · ² Xi’an Jiaotong University · ³ Tsinghua University · ⁴ Shanghai Jiaotong University
 
 **Multi-Abnormality Classification**  
-Yunhan Fang², Pengcheng Shi¹, Jiawei Chen¹,³, Yiming Shi⁴, Shuheng Zhang¹, Jiaqi Liu¹, Xinglin Zhang¹  
+Yunhan Fang², Pengcheng Shi¹, Jiawei Chen³, Yiming Shi⁴, Shuheng Zhang¹, Jiaqi Liu¹, Xinglin Zhang¹  
 ¹ Medical Image Insights · ² Shanghai Jiaotong University · ³ Xi’an Jiaotong University · ⁴ Tsinghua University
 
 ## Official results
