@@ -111,7 +111,7 @@ the upstream RadBERT checkpoint for F1/CRG reproduction.
 Training and evaluation use the
 [CT-RATE dataset](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE).
 
-If you use this code or the released weights, please cite:
+If you use the CT-RATE dataset, please cite:
 
 ```bibtex
 @article{hamamci2026generalist,
