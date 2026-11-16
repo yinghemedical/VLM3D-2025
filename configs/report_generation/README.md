@@ -6,7 +6,7 @@ provenance; update local paths before use.
 
 ## CT-RATE Evaluation
 
-| YAML | Purpose | A100s |
+| YAML | Purpose | Devices |
 |---|---|---:|
 | `ctrate_report_8b_smoke.yaml` | 8-case end-to-end smoke test | 1 |
 | `ctrate_report_8b_full.yaml` | full CT-RATE `valid_fixed` evaluation with GT-label prompt (3,039 volumes) | 8 |

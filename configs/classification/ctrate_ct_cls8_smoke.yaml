@@ -1,6 +1,5 @@
 pod_name: shipc-vlm3d-ct-cls8-smoke
 cmd: bash /path/to/VLM3D/scripts/classification/run_ct_cls8_all.sh smoke
-gpu_name: NVIDIA-A100
 gpu_num: 1
 memory_limit: 128
 user_name: shipengcheng

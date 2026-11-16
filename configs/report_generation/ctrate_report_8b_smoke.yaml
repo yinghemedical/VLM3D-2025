@@ -1,6 +1,5 @@
 pod_name: shipc-vlm3d-ctrate-report-8b-smoke
 cmd: bash /path/to/VLM3D/scripts/report_generation/run_ctrate_eval_8b.sh smoke
-gpu_name: NVIDIA-A100
 gpu_num: 1
 memory_limit: 128
 user_name: shipengcheng

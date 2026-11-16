@@ -17,7 +17,7 @@ pycocoevalcap-based report metric.
 |---|---|
 | `prepare_runtime_model.py` | Creates `weights/report_generation/runtime-8b-ctrate/` with symlinked 8B shards and a config patched to local SigLIP2/Qwen3 assets. |
 | `prepare_ctrate_eval.py` | Builds `gt.csv`, `inputs.all.json`, and `inputs.shardNN.json` from `validation_reports.csv` + `valid_predicted_labels.csv`. |
-| `run_medmvl_report.py` | One process per shard/GPU; writes `predictions.shardNN.{json,csv}` incrementally. |
+| `run_medmvl_report.py` | One process per shard/device; writes `predictions.shardNN.{json,csv}` incrementally. |
 | `merge_results.py` | Merges shards in GT order into `predictions.{json,csv}`. |
 | `eval_nlg.py` | Calls the CT-RATE BLEU metric and adds ROUGE-L/CIDEr (METEOR if Java exists). |
 | `eval_f1.py` | RadBERT report-label extraction + 18-class macro/micro F1 + CRG. |
@@ -43,13 +43,13 @@ This patient does not have the following diseases: ...
 
 ## Run
 
-Smoke (8 cases, 1 GPU):
+Smoke (8 cases, 1 device):
 
 ```bash
 bash /path/to/VLM3D/scripts/report_generation/run_ctrate_eval_8b.sh smoke
 ```
 
-Full (3,039 volumes, 8 shards/GPUs), GT-label prompt:
+Full (3,039 volumes, 8 shards/devices), GT-label prompt:
 
 ```bash
 bash /path/to/VLM3D/scripts/report_generation/run_ctrate_eval_8b.sh full

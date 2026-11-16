@@ -132,7 +132,7 @@ reports are redistributed.
 
 ## Full CT-RATE 3,039 volumes
 
-Local (requires 4× A100):
+Local (requires 4 visible devices):
 
 ```bash
 bash pipeline/run_3039.sh

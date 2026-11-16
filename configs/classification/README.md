@@ -5,7 +5,7 @@ Final submitted classifier: **CT_CLS8**, a three-checkpoint ensemble
 
 ## CT-RATE CT_CLS8 Inference
 
-| YAML | Purpose | A100s |
+| YAML | Purpose | Devices |
 |---|---|---:|
 | `ctrate_ct_cls8_smoke.yaml` | one-case smoke test | 1 |
 | `ctrate_ct_cls8_full.yaml` | 3,039-volume inference (4 shards) | 4 |

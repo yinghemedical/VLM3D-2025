@@ -5,7 +5,7 @@
 - Python 3.10, PyTorch 2.2, Transformers 4.51, MONAI 1.4, nnU-Net 2.4.1.
 - Install with `pip install -r requirements.txt` or
   `conda env create -f environment.yml`.
-- DeepSpeed ZeRO-3 on 8× A100 for report training.
+- DeepSpeed ZeRO-3 for report training.
 - Base models: SigLIP2-so400m-patch14-384 and Qwen3-8B. Download them from
   their upstream releases; see `docs/REFERENCES.md`.
 - Final weights: `docs/MODEL_WEIGHTS.md`.
