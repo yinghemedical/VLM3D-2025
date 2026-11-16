@@ -1,0 +1,63 @@
+# Core runtime and evaluation dependencies for VLM3D 2025.
+# Python 3.10 is recommended.
+#
+# Two model-specific environments were used in the original workspace. This
+# file keeps the common versions compatible with the public pipeline:
+# - CT_CLS8 inference/evaluation
+# - MedM-VL 8B inference and report evaluation
+#
+# nnU-Net 2.4.1 is installed from source; see README.md.
+
+# Deep learning
+torch==2.2.0
+torchvision==0.17.0
+torchaudio==2.2.0
+lightning==2.4.0
+torchmetrics==1.6.1
+timm>=0.9.16
+dynamic-network-architectures==0.3.1
+acvl_utils==0.2.5
+
+# Medical imaging / data
+monai==1.4.0
+nibabel==5.3.2
+SimpleITK==2.3.1
+pydicom
+numpy>=1.23.5,<2
+scipy>=1.10.1
+pandas>=1.5.3
+scikit-learn>=1.2.2
+scikit-image>=0.19.3
+batchgenerators
+batchgeneratorsv2>=0.2.3
+blosc2>=3.0.0
+hd-bet
+tifffile
+Pillow>=9.3.0
+
+# Classification
+hydra-core
+omegaconf
+efficientnet-pytorch>=0.7.1
+madgrad>=1.2
+
+# Report generation
+transformers==4.51.3
+sentencepiece==0.2.0
+deepspeed==0.14.4
+accelerate==0.32.1
+peft==0.14.0
+einops
+positional_encodings
+tensorboard==2.17.0
+wandb>=0.15.8
+matplotlib>=3.6.2
+rich>=12.6.0
+
+# Report evaluation
+pycocoevalcap
+pycocotools
+nltk
+rouge-score
+bert-score
+evaluate==0.4.2

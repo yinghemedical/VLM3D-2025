@@ -1,53 +1,56 @@
 # Method
 
-## Tasks
+This repository covers the two VLM3D@MICCAI 2025 tracks submitted by
+**Medical Image Insights**: Multi-Abnormality Classification and Report
+Generation. Both tracks use CT-RATE chest CT.
 
-The 2025 workspace contains final artifacts for:
+## Multi-Abnormality Classification
 
-1. **Multi-Abnormality Classification** on CT-RATE chest CT.
-2. **Report Generation** on CT-RATE chest CT.
+The classification model is **CT_CLS8**, a three-checkpoint ROI ensemble.
 
-No final artifact was found for Abnormality Localization or Text-to-CT
-Generation; confirm with the team before claiming those tasks.
+1. **Anatomy segmentation.** TotalSegmentator v2.0.1
+   (`Dataset665_Totalsegmentator_v201_Anatomy`) segments the full CT volume.
+2. **ROI crops.** Seven anatomical regions are extracted: material, arterial,
+   heart, lung, trachea, hiatal, and lymphadenopathy.
+3. **ROI classifiers.** ROI-specific ResEncUNet classifiers predict the 18
+   CT-RATE abnormality labels.
+4. **Class masking and ensemble.** Each checkpoint's sigmoid outputs are
+   restricted to the classes assigned to its ROI; the three masked probability
+   maps are averaged.
+5. **Output.** 18 class probabilities. The 0.5 threshold is used to build the
+   report prompt and for evaluation.
+
+The three checkpoints are combined only at the probability level. No language
+model or report text is used in this track.
 
 ## Report Generation
 
-- Model family: **MedM-VL**.
-- Image encoder: **SigLIP2-so400m-patch14-384**.
-- LLM: **Qwen3-8B** (`cache_dir_hf/Qwen3-8B`).
-- Training recipe:
-  1. **Pretrain**: image encoder and LLM frozen; connector trained for 1 epoch.
-  2. **Fine-tune**: image encoder, LLM and connector full-finetuned for 1 epoch.
-- Final local weight snapshot:
-  `weights/report_generation/final-MedM-VL-siglip-384-qwen3-8b-finetune/`.
-- Training records: `final_pretrain.json` 50,174; `final_finetune.json`
-  50,179; VQA variant 767,932.
-- Input at inference: CT volume + instruction.
-- Output: structured findings + free-text report section.
+The report model is **MedM-VL**:
 
-## Classification
+- Image encoder: **SigLIP2-so400m-patch14-384**
+- Language model: **Qwen3-8B**
+- Connector: two-layer MLP with attention pooling
 
-- Code lines found:
-  - `code/jiawei_vlm3d_methods/` — challenge evaluation and class_model docs.
-  - `code/yunhan_vlm3d_cls/` — VLM3D classification train/inference scripts.
-  - `code/yunhan_vlm3d_dockers/abnclass_evaluation/` — challenge evaluation.
-- Candidate checkpoints:
-  - Jiawei LVLM `checkpoint_2699_epoch_1_0.2706.pt`.
-  - Yunhan LVLM `checkpoint_2699_epoch_2_0.3047.pt`.
-  - Yunhan SSL3D `best_f10.2578_epoch31.pth`.
-- Exact final submitted checkpoint: **TODO — confirm with team**.
+Training used 50,179 CT-RATE volume-report records:
 
-## Data
+1. **Pretrain.** Image encoder and LLM frozen; connector trained for one epoch.
+2. **Fine-tune.** Image encoder, connector, and LLM trained jointly for one
+   epoch.
 
-- Source: CT-RATE.
-- Original training path recorded in scripts:
-  `/path/to/jiawei_database/ctrate_raw` (now missing).
-- Public reproduction must remap this to a locally available CT-RATE
-  preprocessed directory.
-- Images, reports, and patient-level identifiers are not redistributed.
+At inference, report generation **depends on the classification model**:
 
-## Artifact caveats
+1. Run CT_CLS8 on the CT volume.
+2. Convert the 18 probabilities into positive and negative finding lists at a
+   0.5 threshold.
+3. Insert the lists into the prompt together with the CT volume and
+   instruction.
+4. Generate `Findings: ... Impressions: ...` with the 8B model.
 
-- Copied code still contains old absolute paths; sanitize before public release.
-- The classification final checkpoint and final Docker image are not confirmed.
-- Local metrics are not official challenge scores.
+Ground-truth labels are not used at inference. The report track uses a single
+8B checkpoint and no ROI ensemble.
+
+## Data and weights
+
+CT-RATE is not redistributed. See `docs/DATA.md` for data access and
+preprocessing, `docs/MODEL_WEIGHTS.md` for final weights, and
+`docs/SUBMISSION.md` for the submission-to-config mapping.

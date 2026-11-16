@@ -74,7 +74,7 @@ batch_cmd run -i /path/to/VLM3D/configs/report_generation/ctrate_report_8b_smoke
 batch_cmd run -i /path/to/VLM3D/configs/report_generation/ctrate_report_8b_full.yaml -y
 ```
 
-F1 / CRG after a full run (RadBERT, same 3,039 cases):
+F1 / CRG after a full run (RadBERT, same 3,039 volumes):
 
 ```bash
 batch_cmd run -i /path/to/VLM3D/configs/report_generation/ctrate_report_8b_f1.yaml -y

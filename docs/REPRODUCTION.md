@@ -2,92 +2,67 @@
 
 ## Environment
 
-- Conda env used by the original report-generation run: `medmvl`
-  (`/path/to/miniconda3/envs/medmvl`).
-- Code snapshot: `code/jiawei_report_generate_docker/`.
-- Base models used by training:
-  - `cache_dir_hf/Qwen3-8B`
-  - `cache_dir_hf/models--google--siglip2-so400m-patch14-384/...`
-  These live in the original Jiawei workspace; they were not copied into this
-  workspace (they are dependencies, not final weights).
-- Final report weights: `weights/report_generation/final-MedM-VL-siglip-384-qwen3-8b-finetune/`.
+- Python 3.10, PyTorch 2.2, Transformers 4.51, MONAI 1.4, nnU-Net 2.4.1.
+- Install with `pip install -r requirements.txt` or
+  `conda env create -f environment.yml`.
+- DeepSpeed ZeRO-3 on 8× A100 for report training.
+- Base models: SigLIP2-so400m-patch14-384 and Qwen3-8B. Download them from
+  their upstream releases; see `docs/REFERENCES.md`.
+- Final weights: `docs/MODEL_WEIGHTS.md`.
+- Data access and layout: `docs/DATA.md`.
 
-## Path sanitization required
+## Report-Generation Training
 
-The copied scripts still contain old absolute paths:
+Training used 50,179 CT-RATE volume-report records.
 
-```text
-/path/to/jiawei_workspace/VLM3D_challenge/jiawei_workspace/...
-/path/to/jiawei_database/ctrate_raw
-```
+1. **Pretrain.** Image encoder and LLM frozen; connector trained for one epoch.
+   Per-device batch 8, gradient accumulation 2, learning rate 1e-3.
+2. **Fine-tune.** Resume from the pretrain output; image encoder, connector, and
+   LLM trained jointly for one epoch. Per-device batch 8, gradient
+   accumulation 2, learning rate 2e-5.
 
-`/path/to/jiawei_workspace` and `/path/to/jiawei_database/ctrate_raw`
-no longer exist. Before public release:
-
-1. Replace the old workspace prefix with the public repo root.
-2. Replace `image3d_path` with a locally available CT-RATE preprocessed
-   directory.
-3. Remove private host paths and credentials.
-
-## Report-generation training outline
-
-From `scripts/former/final_siglip_384_qwen3_4b_pretrain.sh`:
-
-- DeepSpeed ZeRO-3, 8 GPUs.
-- LLM and image encoder frozen; connector trained.
-- 1 epoch; per-device batch 8; gradient accumulation 2; LR 1e-3.
-- Data: `datasets/final_data/final_pretrain.json`.
-
-From `scripts/former/final_siglip_384_qwen3_4b_finetune.sh`:
-
-- Resume from the pretrain output.
-- LLM, image encoder and connector full-finetuned.
-- 1 epoch; per-device batch 8; gradient accumulation 2; LR 2e-5.
-- Data: `datasets/final_data/final_finetune.json`.
-
-Training data JSONs are excluded from this workspace (1.6 GB). The generators
-are kept in `code/jiawei_report_generate_docker/datasets/final_data/`; obtain
-CT-RATE under its upstream terms.
+The final fine-tuning file includes the CT-RATE train and valid splits, so
+report metrics on `valid_fixed` are in-sample. Training manifests are generated
+from CT-RATE; images and reports are not redistributed.
 
 ## Inference
 
-The original inference script is under
-`code/jiawei_report_generate_docker/scripts/new/inference.sh` and points at a
-local `siglip384-finetune` checkpoint. For the final model, change
-`MODEL_PATH` to:
+The report model depends on the classification model:
 
-```text
-weights/report_generation/final-MedM-VL-siglip-384-qwen3-8b-finetune
+1. Run CT_CLS8 to obtain 18-class probabilities.
+2. Build the positive/negative finding lists at threshold 0.5.
+3. Run MedM-VL 8B with the CT volume and prompt.
+
+Per-case:
+
+```bash
+bash pipeline/run_case.sh /path/to/case.nii.gz CASE_ID pipeline/outputs
 ```
 
-and set `--image3d_path` to the local CT-RATE preprocessed validation/inference
-directory.
+Batch:
+
+```bash
+bash pipeline/run_3039.sh
+```
+
+Cluster configs and run order are in `docs/SUBMISSION.md`.
+
+## Evaluation
+
+```bash
+bash scripts/classification/run_ct_cls8_all.sh full
+bash scripts/report_generation/run_ctrate_eval_8b.sh full_predcls_ctcls8
+```
+
+The report command reads the CT_CLS8 predictions and computes NLG and
+RadBERT-based F1 metrics. See `scripts/report_generation/README.md` for path
+overrides.
 
 ## Weights
 
-See `docs/MODEL_WEIGHTS.md`. The final report checkpoint is copied; the
-classification final checkpoint is still to be confirmed.
-
-## Docker
-
-No final 2025 challenge Docker image or base image was found in the local
-snapshots. The 2026 reference repo documents a private `med-swift` base image
-that is not publicly distributed. Document the actual 2025 image/base status
-before claiming end-to-end Docker reproducibility.
-
-## Validation checklist
-
-- [ ] Load final weights without missing/unexpected keys.
-- [ ] Run one CT-RATE case end-to-end.
-- [ ] Verify output schema and report body.
-- [ ] Verify offline mode.
-- [ ] Verify no patient identifiers in logs/outputs.
-
-## Weights
-
-Download from the public Hugging Face repositories:
-
-- Report generation: https://huggingface.co/yinghemedical/VLM3D2025-Task1-ReportGeneration
-- Classification: https://huggingface.co/yinghemedical/VLM3D2025-Task2-AbnormalityClassifications
+- Report generation:
+  https://huggingface.co/yinghemedical/VLM3D2025-Task1-ReportGeneration
+- Classification:
+  https://huggingface.co/yinghemedical/VLM3D2025-Task2-AbnormalityClassifications
 
 Code repository: https://github.com/yinghemedical/VLM3D-2025

@@ -40,9 +40,23 @@ code/report_generation/
 pipeline/         end-to-end CT_CLS8 -> 8B report, per case or batch
 scripts/          wrappers used by pipeline and cluster YAMLs
 configs/          classification/report cluster YAMLs
-docs/             method, results, release notes
+docs/             method, data, submission, weights, results, limits, references
 pipeline/examples/ placeholder examples; no CT-RATE data
 ```
+
+## Documentation
+
+- [Method](docs/method.md)
+- [Data and preprocessing](docs/DATA.md)
+- [Submission artifacts](docs/SUBMISSION.md)
+- [Model weights](docs/MODEL_WEIGHTS.md)
+- [Results](docs/RESULTS.md)
+- [Limits and limitations](docs/LIMITATIONS.md)
+- [References and usage terms](docs/REFERENCES.md)
+- [Reproduction notes](docs/REPRODUCTION.md)
+- [End-to-end pipeline](pipeline/README.md)
+- [Classification scripts](scripts/classification/README.md)
+- [Report-generation scripts](scripts/report_generation/README.md)
 
 ## Entrypoints
 
@@ -73,6 +87,21 @@ Weights are in two Hugging Face repositories:
 - Multi-abnormality classification:
   [`yinghemedical/VLM3D2025-Task2-AbnormalityClassifications`](https://huggingface.co/yinghemedical/VLM3D2025-Task2-AbnormalityClassifications)
   — CT_CLS8 3-checkpoint ensemble + TotalSegmentator checkpoint.
+
+Install the Python dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+or create the conda environment:
+
+```bash
+conda env create -f environment.yml
+```
+
+nnU-Net 2.4.1 is installed from source; see the installation notes in the
+upstream nnU-Net repository.
 
 Set local paths in the environment file:
 

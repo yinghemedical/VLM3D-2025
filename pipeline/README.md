@@ -130,9 +130,9 @@ Each row is processed independently by `run_case.sh`; results go to
 The included examples are CT-RATE public `valid_fixed` cases; no images or
 reports are redistributed.
 
-## Full CT-RATE 3,039 cases
+## Full CT-RATE 3,039 volumes
 
-Local (requires 4 visible GPUs):
+Local (requires 4× A100):
 
 ```bash
 bash pipeline/run_3039.sh

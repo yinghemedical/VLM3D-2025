@@ -1,6 +1,6 @@
 pod_name: shipc-vlm3d-ctrate-report-8b-full
 cmd: bash /path/to/VLM3D/scripts/report_generation/run_ctrate_eval_8b.sh full
-gpu_name: NVIDIA-H200
+gpu_name: NVIDIA-A100
 gpu_num: 8
 memory_limit: 512
 user_name: shipengcheng
