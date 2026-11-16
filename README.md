@@ -68,10 +68,10 @@ pipeline/run_case.sh
 Weights are in two Hugging Face repositories:
 
 - Report generation:
-  [`jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration`](https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration)
+  [`yinghemedical/VLM3D2025-Task1-ReportGeneration`](https://huggingface.co/yinghemedical/VLM3D2025-Task1-ReportGeneration)
   — final 8B MedM-VL checkpoint (4 shards).
 - Multi-abnormality classification:
-  [`jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications`](https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications)
+  [`yinghemedical/VLM3D2025-Task2-AbnormalityClassifications`](https://huggingface.co/yinghemedical/VLM3D2025-Task2-AbnormalityClassifications)
   — CT_CLS8 3-checkpoint ensemble + TotalSegmentator checkpoint.
 
 Set local paths in the environment file:

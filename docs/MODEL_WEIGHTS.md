@@ -3,9 +3,9 @@
 ## Public weight repositories
 
 - Task 1 (Report Generation):
-  https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration
+  https://huggingface.co/yinghemedical/VLM3D2025-Task1-ReportGeneration
 - Task 2 (Multi-Abnormality Classification):
-  https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications
+  https://huggingface.co/yinghemedical/VLM3D2025-Task2-AbnormalityClassifications
 
 ## Report Generation
 
@@ -20,7 +20,7 @@
   - `model-00003-of-00004.safetensors`
   - `model-00004-of-00004.safetensors`
   - `config.json`, `tokenizer*`, `model.safetensors.index.json`
-- Public URL: `https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration`
+- Public URL: `https://huggingface.co/yinghemedical/VLM3D2025-Task1-ReportGeneration`
 - SHA-256: see `manifests/weights_sha256.txt`
 
 ## Docker-internal weights

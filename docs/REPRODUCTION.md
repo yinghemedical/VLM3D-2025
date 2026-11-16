@@ -87,7 +87,7 @@ before claiming end-to-end Docker reproducibility.
 
 Download from the public Hugging Face repositories:
 
-- Report generation: https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task1-ReportGeneration
-- Classification: https://huggingface.co/jiaweichen-pjlab/VLM3D2025-Task2-AbnormalityClassifications
+- Report generation: https://huggingface.co/yinghemedical/VLM3D2025-Task1-ReportGeneration
+- Classification: https://huggingface.co/yinghemedical/VLM3D2025-Task2-AbnormalityClassifications
 
 Code repository: https://github.com/yinghemedical/VLM3D-2025
